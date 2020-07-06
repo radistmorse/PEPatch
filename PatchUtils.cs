@@ -68,13 +68,23 @@ namespace PEPatch
                         var customData = new CustomCharactor.CustomData();
                         customData.Deserialize(buff);
 
+                        var steamId = SteamFriendPrcMgr.Instance.GetMyInfo()._SteamID.m_SteamID;
+
+                        var roleId = steamId.GetHashCode();
+
+                        if (roleId > int.MaxValue - 4)
+                        {
+                            roleId = 1;
+                        }
+
                         rez.Add(new CustomData.RoleInfo()
                         {
                             appearData = customData.appearData.Serialize(),
                             nudeData = customData.nudeAvatarData.Serialize(),
                             name = customData.charactorName,
                             sex = (byte)(int)customData.sex,
-                            roleID = rez.Count + 1
+                            steamId = steamId,
+                            roleID = roleId + rez.Count + 1
                         });
                     }
                 }

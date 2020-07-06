@@ -1,4 +1,5 @@
 ﻿using HarmonyLib;
+using System.Linq;
 
 namespace PEPatch
 {
@@ -20,12 +21,24 @@ namespace PEPatch
                         var playerModel = Traverse.Create(__instance).Field("mCurrent").GetValue<PlayerModel>();
                         byte[] appearData = playerModel.mAppearData.Serialize();
                         byte[] nudeData = playerModel.mNude.Serialize();
+
+                        var steamId = SteamFriendPrcMgr.Instance.GetMyInfo()._SteamID.m_SteamID;
+
+                        var roleId = steamId.GetHashCode();
+
+                        if (roleId > int.MaxValue - 4)
+                        {
+                            roleId = 1;
+                        }
+
                         var role = new CustomData.RoleInfo()
                         {
                             appearData = appearData,
                             nudeData = nudeData,
                             name = name,
-                            sex = (byte)(int)Traverse.Create(__instance).Property("Sex").GetValue()
+                            sex = (byte)(int)Traverse.Create(__instance).Property("Sex").GetValue(),
+                            steamId = SteamFriendPrcMgr.Instance.GetMyInfo()._SteamID.m_SteamID,
+                            roleID = roleId + GameClientLobby.Self.myRoles.Where(r => r.deletedFlag != 1).Select(r => r.roleID).DefaultIfEmpty(0).Max() + 1
                         };
 
                         GameClientLobby.Self.myRoles.Add(role);
