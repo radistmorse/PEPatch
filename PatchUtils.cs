@@ -54,7 +54,8 @@ namespace PEPatch
                 return;
             }
 
-            var rez = new List<CustomData.RoleInfo>();
+            GameClientLobby.Self.myRoles = new List<CustomData.RoleInfo>();
+            GameClientLobby.Self.myRolesExisted = new List<CustomData.RoleInfo>();
 
             foreach (var file in Directory.GetFiles(path))
             {
@@ -70,28 +71,24 @@ namespace PEPatch
 
                         var steamId = SteamFriendPrcMgr.Instance.GetMyInfo()._SteamID.m_SteamID;
 
-                        var roleId = steamId.GetHashCode();
+                        var roleId = steamId.GetHashCode() ^ customData.charactorName.GetHashCode();
 
-                        if (roleId > int.MaxValue - 4)
-                        {
-                            roleId = 1;
-                        }
-
-                        rez.Add(new CustomData.RoleInfo()
+                        var role = new CustomData.RoleInfo()
                         {
                             appearData = customData.appearData.Serialize(),
                             nudeData = customData.nudeAvatarData.Serialize(),
                             name = customData.charactorName,
                             sex = (byte)(int)customData.sex,
                             steamId = steamId,
-                            roleID = roleId + rez.Count + 1
-                        });
+                            roleID = roleId
+                        };
+
+                        GameClientLobby.Self.myRoles.Add(role);
+                        GameClientLobby.Self.myRolesExisted.Add(role);
+
                     }
                 }
             }
-
-            GameClientLobby.Self.myRoles = rez;
-            GameClientLobby.Self.myRolesExisted = rez;
         }
     }
 }

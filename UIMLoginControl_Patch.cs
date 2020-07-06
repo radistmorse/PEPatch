@@ -20,9 +20,10 @@ namespace PEPatch
         public static bool BtnOKOnClick(UIMLoginControl __instance)
         {
             __instance.BtnOK?.Invoke();
-            var roleId = Traverse.Create(__instance).Field("deleteRoleIndex").GetValue<int>();
 
-            CustomData.RoleInfo role = MLPlayerInfo.Instance.GetRoleInfo(__instance.rc.GetSelectedIndex()).mRoleInfo;
+            var roleId = MLPlayerInfo.Instance.GetRoleInfo(Traverse.Create(__instance).Field("deleteRoleIndex").GetValue<int>()).mRoleInfo.roleID;
+
+            CustomData.RoleInfo role = GameClientLobby.Self.myRoles.Find(it => it.roleID == roleId);
             role.deletedFlag = 1;
             GameClientLobby.Self.myRolesExisted.Remove(role);
             GameClientLobby.Self.myRolesDeleted.Clear();
