@@ -9,7 +9,8 @@ namespace PEPatch
         [HarmonyPatch("EnterLobby")]
         public static bool EnterLobby(UIMLoginControl __instance)
         {
-            Traverse.Create<GameClientLobby>().Property("role").SetValue(MLPlayerInfo.Instance.GetRoleInfo(__instance.rc.GetSelectedIndex()).mRoleInfo);
+            var role = MLPlayerInfo.Instance.GetRoleInfo(__instance.rc.GetSelectedIndex()).mRoleInfo;
+            Traverse.Create<GameClientLobby>().Property("role").SetValue(role);
             PeSceneCtrl.Instance.GotoLobbyScene();
 
             return false;

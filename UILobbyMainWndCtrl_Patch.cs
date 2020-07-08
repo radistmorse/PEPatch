@@ -29,6 +29,8 @@ namespace PEPatch
 
             __instance.GetType().GetMethod("InitRoomListSort", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).Invoke(__instance, new object[] { });
 
+            __instance.mRoomInput.bUseClipboard = true;
+
             return false;
         }
 
