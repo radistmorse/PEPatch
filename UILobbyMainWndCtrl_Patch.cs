@@ -77,9 +77,12 @@ namespace PEPatch
             Traverse.Create(server).Field("GameMode").SetValue(0);
             Traverse.Create(server).Field("ServerUID").SetValue(1L);
 
-            __instance.GetType().GetMethod("ConnectServer", System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic).Invoke(__instance, new object[] { false, server });
+            Traverse.Create(__instance).Field("mSelectServerData").SetValue(server);
+            Traverse.Create(__instance).Field("roomUID").SetValue(1L);
 
-            return false;
+            __instance.mCheckPasswordInput.text = string.Empty;
+
+            return true;
         }
     }
 }

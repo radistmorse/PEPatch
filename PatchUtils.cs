@@ -71,7 +71,7 @@ namespace PEPatch
 
                         var steamId = SteamFriendPrcMgr.Instance.GetMyInfo()._SteamID.m_SteamID;
 
-                        var roleId = (steamId.GetHashCode() ^ customData.charactorName.GetHashCode()) % 16000000;
+                        var roleId = (steamId.GetHashCode() ^ customData.charactorName.GetHashCode()) % 13000000;
 
                         var role = new CustomData.RoleInfo()
                         {
