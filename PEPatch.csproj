@@ -54,10 +54,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GameClientNetwork_Patch.cs" />
     <Compile Include="PatchInitializer.cs" />
     <Compile Include="PatchUtils.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ServerRegisteredLocal.cs" />
     <Compile Include="TitleMenuGui_N_Patch.cs" />
     <Compile Include="UILobbyMainWndCtrl_Patch.cs" />
     <Compile Include="UIMLoginControl_Patch.cs" />

@@ -14,6 +14,11 @@ namespace PEPatch
                 var harmony = new Harmony("PEPatch");
 
                 harmony.PatchAll();
+
+                // Disable the extra steam manager
+                var obj = System.Activator.CreateInstance(typeof(SteamProcessMgr).Assembly.GetType("SteamManager"));
+                Traverse.Create(obj).Field("m_bInitialized").SetValue(true);
+                Traverse.Create(typeof(SteamProcessMgr).Assembly.GetType("SteamManager")).Field("s_instance").SetValue(obj);
             }).Start();
         }
     }
