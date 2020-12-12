@@ -6,7 +6,7 @@ Multiplayer patch for Planet Explorers. Works for Windows x64.
 - Unpack it to the ```Server``` folder inside your PE installation.
 - Configure the server using the file ```ConfigFiles/ServerConfig.conf```.
   - Set ```ServerName``` to something distinguishable.
-  - Set ``PublicServer``` to true if you want it to be accessible through internet, or leave it false to make it a LAN-server.
+  - Set ```PublicServer``` to true if you want it to be accessible through internet, or leave it false to make it a LAN-server.
   - Set the password if needed.
   - Configure the rest of the config normally (see the explanation e.g. [here](https://steamcommunity.com/app/237870/discussions/2/152390014783676975/)).
 - If you chose the public server, configure the router to forward the ports 9900-9940 (you need 9900 and 9920 for the first instance, 9901 and 9921 for the second and so on).
